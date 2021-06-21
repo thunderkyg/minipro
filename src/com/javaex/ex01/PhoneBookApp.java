@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-
 public class PhoneBookApp {
 
 	public static void main(String[] args) throws IOException {
@@ -22,10 +21,12 @@ public class PhoneBookApp {
 		System.out.println("*       전화번호 관리 프로그램         *");
 		System.out.println("****************************************");
 		
-		// Stream
+		// Input Stream
 		InputStream is = new FileInputStream("C:\\javaStudy\\workspace\\minipro\\미니프로젝트\\PhoneDB.txt");
 		InputStreamReader isr = new InputStreamReader(is);
 		BufferedReader br = new BufferedReader(isr);
+		
+		//Output Stream
 		
 		//ListArray
 		List<PhoneBook> pArray = new ArrayList<PhoneBook>();
