@@ -48,55 +48,32 @@ public class PhoneBookApp {
 			pArray.add(new PhoneBook(name, hp, company));
 		}
 
+		Boolean loop = true;
 		// 반복문
-		while (true) {
+		while (loop) {
 			System.out.println("1.리스트  2.등록  3.삭제  4.검색  5.종료");
 			System.out.println("----------------------------------------");
 			System.out.print(">메뉴번호: ");
-			String num = input.nextLine();
-			int i = 1;
+			int num = input.nextInt();
 			// 리스트
-			if ("1".equals(num)) {
+			switch (num) {
+			case 1: {
 				System.out.println("<1.리스트>");
-				for (PhoneBook list : pArray) {
-					System.out.println(i + ". " + list.showInfo());
-					i++;
+				for (int i = 0; i < pArray.size(); i++) {
+					System.out.println(i + 1 + ". " + pArray.get(i).showInfo());
 				}
 				System.out.println();
-				// 등록
-			} else if ("2".equals(num)) {
+				break;
+			}
+			case 2: {
 				System.out.println("<2.등록>");
 				System.out.print(">이름: ");
-				String name = input.nextLine();
+				String name = input.next();
 				System.out.print(">휴대전화: ");
-				String hp = input.nextLine();
+				String hp = input.next();
 				System.out.print(">회사전화: ");
-				String company = input.nextLine();
+				String company = input.next();
 				pArray.add(new PhoneBook(name, hp, company));
-				System.out.println("[등록되었습니다.]");
-				System.out.println();
-				// 삭제
-			} else if ("3".equals(num)) {
-				System.out.println("<3. 삭제>");
-				System.out.print(">번호: ");
-				int delete = input.nextInt();
-				delete--;
-				pArray.remove(delete);
-				System.out.println("[삭제되었습니다.]");
-				System.out.println();
-				// 검색
-			} else if ("4".equals(num)) {
-				System.out.println("<4.검색>");
-				System.out.print(">이름: ");
-				String search = input.nextLine();
-				for (PhoneBook list : pArray) {
-					if (list.getName().contains(search))
-						System.out.println(i + ". " + list.showInfo());
-					i++;
-				}
-				// 종료
-			} else if ("5".equals(num)) {
-				// Writer
 				Writer wr = new FileWriter("C:\\javaStudy\\workspace\\minipro\\미니프로젝트\\PhoneDB.txt");
 				BufferedWriter bw = new BufferedWriter(wr);
 				for (PhoneBook list : pArray) {
@@ -106,15 +83,53 @@ public class PhoneBookApp {
 					;
 				}
 				bw.close();
+				System.out.println("[등록되었습니다.]");
+				System.out.println();
 				break;
-				// 잘못된번호
-			} else {
+			}
+			case 3: {
+				System.out.println("<3. 삭제>");
+				System.out.print(">번호: ");
+				int delete = input.nextInt();
+				delete--;
+				pArray.remove(delete);
+				Writer wr = new FileWriter("C:\\javaStudy\\workspace\\minipro\\미니프로젝트\\PhoneDB.txt");
+				BufferedWriter bw = new BufferedWriter(wr);
+				for (PhoneBook list : pArray) {
+					bw.write(list.getName() + "," + list.getHp() + "," + list.getCompany());
+					bw.newLine();
+					bw.flush();
+					;
+				}
+				bw.close();
+				System.out.println("[삭제되었습니다.]");
+				System.out.println();
+				break;
+			}
+			case 4: {
+				System.out.println("<4.검색>");
+				System.out.print(">이름: ");
+				String search = input.next();
+				for (int i = 0; i < pArray.size(); i++) {
+					if (pArray.get(i).getName().contains(search)) {
+						System.out.println(i + 1 + ". " + pArray.get(i).showInfo());
+					}
+				}
+				System.out.println();
+				break;
+			}
+			case 5: {
+				System.out.println();
+				loop = false;
+				break;
+			}
+			default:
 				System.out.println("[다시 입력해주세요]");
 				System.out.println();
+				break;
 			}
 
 		}
-		// Write
 
 		System.out.println("****************************************");
 		System.out.println("*             감사합니다               *");
